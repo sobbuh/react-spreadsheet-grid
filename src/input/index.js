@@ -12,6 +12,7 @@ class SpreadsheetGridInput extends React.PureComponent {
         this.onKeyDown = this.onKeyDown.bind(this);
         this.onChange = this.onChange.bind(this);
         this.onBlur = this.onBlur.bind(this);
+        this.onClick = this.onClick.bind(this);
 
         this.state = {
             value: this.props.value
@@ -45,6 +46,11 @@ class SpreadsheetGridInput extends React.PureComponent {
         });
     }
 
+    onClick(e) {
+        this.input.focus();
+        this.input.setSelectionRange(0,this.input.value.length)
+    }
+    
     onBlur() {
         if (this.props.onChange) {
             this.props.onChange(this.input.value);
@@ -54,7 +60,7 @@ class SpreadsheetGridInput extends React.PureComponent {
     prepareFocus(focus) {
         if (focus) {
             this.input.focus();
-            this.input.selectionStart = this.input.value.length;
+            this.input.setSelectionRange(0,this.input.value.length);
         } else if (this.input === document.activeElement) {
             this.input.blur();
         }
@@ -70,6 +76,7 @@ class SpreadsheetGridInput extends React.PureComponent {
                 onKeyDown={this.onKeyDown}
                 onChange={this.onChange}
                 onBlur={this.onBlur}
+                onClick={this.onClick}
             />
         );
     }
